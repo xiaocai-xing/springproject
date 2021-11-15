@@ -1,6 +1,6 @@
 package com.example.springproject.dao;
 
-
+import javax.persistence.*;
 /**
  * @ClassName User
  * @Description TODO
@@ -8,16 +8,19 @@ package com.example.springproject.dao;
  * @Date 2021/11/2 10:12
  * @Version 1.0
  **/
+
+@Entity
 public class User {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
-
+    @Column
     private String username;
-
+    @Column
     private String userpassword;
-
+    @Column
     private String sex;
-
+    @Column
     private int age;
 
     public long getId() {
@@ -59,6 +62,7 @@ public class User {
     public void setAge(int age) {
         this.age = age;
     }
+
     @Override
     public String toString() {
         return "user{" +

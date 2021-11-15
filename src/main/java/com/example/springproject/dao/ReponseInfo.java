@@ -37,8 +37,14 @@ public class ReponseInfo {
 
     private String NOT_ADMIN="非管理员账户不允许修改账户信息！";
 
+    private String POST_FAIL="请求接口失败";
+
     public String getSUCCESS_CODE(){
         return SUCCESS_CODE;
+    }
+
+    public String getPOST_FAIL(){
+        return POST_FAIL;
     }
 
     public void setSUCCESS_CODE(String SUCCESS_CODE){

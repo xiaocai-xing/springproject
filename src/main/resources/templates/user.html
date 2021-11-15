@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+  <link rel="stylesheet" href="../../static/layui/css/layui.css">
+  <script src="../../static/layui/js/userinfo.js" type="text/javascript"></script>
+  <script src="../../static/layui/jquery.min.js"></script>
+</head>
+<body >
+
+<div class="userinfo" >
+  <div class="layui-btn layui-btn-lg layui-btn-normal" id="add" style="display: none" > <a>新增</a></div>
+  <div class="layui-btn layui-btn-lg layui-btn-danger" lay-filter="del" id="del" lay-event="del" style="display: none" ><a>删除</a></div>
+</div>
+
+<div id="user-content" class="user-content" style="background-color: white;display: none">
+
+  <form class="layui-form layui-form-pane" lay-filter="userinfo" id="formadd" method="post" action="/adduser">
+    <div class="layui-form-item">
+      <label class="layui-form-label">用户姓名</label>
+      <div class="layui-input-block">
+        <label>
+          <input type="text" name="username" id="username" autocomplete="off" lay-verify="required" placeholder="请输入用户名" class="layui-input">
+        </label>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">用户密码</label>
+      <div class="layui-input-inline">
+        <label>
+          <input type="text" name="userpassword" id="userpassword" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </label>
+      </div>
+      <div class="layui-form-mid layui-word-aux">默认密码为：123456</div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">年龄</label>
+      <div class="layui-input-inline">
+        <label>
+          <input type="number" name="age" id="age" placeholder="请输入年龄" lay-verify="required" autocomplete="off" class="layui-input" min="0" max="100">
+        </label>
+      </div>
+    </div>
+    <div class="layui-form-item" pane="">
+      <label class="layui-form-label">性别</label>
+      <div class="layui-input-block">
+        <input type="radio" name="sex"  id="sex-man" value="男" title="男" checked="">
+        <input type="radio" name="sex" id="sex-women" value="女" title="女">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <button type="button" lay-event="layadd" class="layui-btn" id="LAY-component-form-setval" lay-submit lay-filter="addinfo">提&emsp;&emsp;交</button>
+      <button type="reset" class="layui-btn layui-btn-primary" id="close">关&emsp;&emsp;闭</button>
+    </div>
+  </form>
+
+</div>
+
+<div class="user-data">
+  <table id="usertable" lay-filter="usersinfo"></table>
+</div>
+
+<script src="../../static/layui/layui.js"></script>
+<script>
+
+  layui.use('table', function(){
+    let table = layui.table;
+    const $ = layui.jquery;
+
+
+
+    //第一个实例
+    table.render({
+      elem: '#usertable'
+      ,url: '/query/userdata' //数据接口
+      ,page: true //开启分页
+      ,loading:true
+      ,id:'usersinfo'
+      ,cols: [[ //表头
+        {type:'checkbox'}
+        ,{type: 'numbers',title: '序号',align:'center',width:60}
+        ,{field: 'user_name', title: '用户名',}
+        ,{field: 'user_passwd',title: '用户密码'}
+        ,{field: 'user_sex', title: '性别',}
+        ,{field: 'user_age', title: '年龄',}
+        ,{field: 'user_other', title: 'other',}
+      ]]
+    });
+
+
+    $(document).on('click','#LAY-component-form-setval',function (){
+      setTimeout(function (){table.reload('usersinfo',{where:{}, page:{curr:1}})},2000)
+    });
+
+    const json = {};
+    let checkStatus;
+    const UserInfo={};
+    table.on('checkbox(usersinfo)',function (){
+
+      checkStatus = table.checkStatus('usersinfo');
+      const  namelist=[];
+      for(let i=0; i<checkStatus.data.length; i++){
+        namelist.push(checkStatus.data[i].username)
+      }
+
+      UserInfo["name"]=namelist;
+      UserInfo["count"]=checkStatus.data.length;
+
+    });
+
+
+    //新增用户
+      $(document).on('click','#add',function (){
+        $("#user-content").attr("style","display:block");
+        $("#del").attr("style","display:none");
+
+        $("#LAY-component-form-setval").click(function() {
+
+          layer.open({
+            content: '确认新增用户账号吗？',
+            yes: function (index) {
+              layer.close(index);
+              AddInfo();
+              setTimeout(function () {
+                table.reload('usersinfo', {where: {}, page: {curr: 1}});
+                $('#user-content').attr("style","display:none");
+                clean();
+                HiddenControls();
+
+              }, 1000);
+              return true;
+
+            }
+          });
+          return false;
+        })
+        return false;
+      });
+
+      $(document).on('click','#close',function (){
+      clean();
+        $("#user-content").attr("style","display:none");
+      $("#add").removeAttr("style").css("background-color","#009688");
+      $("#del").removeAttr("style").css("background-color","#EA5514");
+
+      return true;
+
+    });
+
+
+    //删除用户
+
+    $(document).on('click','#del',function (){
+      if(checkStatus.data.length < 1){
+        layer.confirm("请勾选至少一个用户进行删除！", {
+          btn: ['确认']
+        });
+        return false;
+      }else {
+        layer.open({
+          content: '确认删除用户账号吗？',
+          yes: function(index){
+            layer.close(index);
+            DelInfo(UserInfo);
+            checkStatus.data.length = 0;
+            setTimeout(function (){table.reload('usersinfo',{where:{}, page:{curr:1}})},1000);
+            return true;
+
+          }
+        });
+        return false;
+
+      }
+    });
+
+  });
+
+</script>
+</body>
+</html>

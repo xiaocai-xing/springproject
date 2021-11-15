@@ -1,6 +1,9 @@
 package com.example.springproject.dao;
 
+import com.alibaba.fastjson.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -12,14 +15,20 @@ import java.util.Map;
  * @Date 2021/11/2 10:16
  * @Version 1.0
  **/
+
+@Service
 public class UserDao extends User{
     private JdbcTemplate jdbcTemplate;
 
+
+    @Autowired
     public void setJdbcTemplate (JdbcTemplate JdbcTemplate){
         this.jdbcTemplate = JdbcTemplate;
     }
+
     private UserDao userDao;
 
+    @Autowired
     public void setUserDao (UserDao UserDao){
         this.userDao = UserDao;
     }
@@ -65,23 +74,23 @@ public class UserDao extends User{
     /*添加用户数据 */
     public boolean adduser(Map<String, String> UserData){
 
-        String Key = "INSERT into`user_info` (`username`,`userpassword`,`age`,`sex`) VALUES(?,?,?,?);";
+        String Key = "INSERT into`userinfo` (`user_name`,`user_passwd`,`user_age`,`user_sex`) VALUES(?,?,?,?);";
         return jdbcTemplate.update(Key,UserData.get("username"),UserData.get("userpassword"),UserData.get("age"),UserData.get("sex"))>0;
 
     }
 
 
     /*删除用户数据 */
-//    public boolean DelUser(JSONArray User){
-//
-//        for (Object name : User) {
-//            String Key = "DELETE FROM `user_info` WHERE `username`=? ;";
-//            if (jdbcTemplate.update(Key,name) == 0) {
-//                return false;
-//            }
-//        }
-//        return true;
-//
-//    }
+    public boolean DelUser(JSONArray User){
+
+        for (Object name : User) {
+            String Key = "DELETE FROM `userinfo` WHERE `user_name`=? ;";
+            if (jdbcTemplate.update(Key,name) == 0) {
+                return false;
+            }
+        }
+        return true;
+
+    }
 
 }

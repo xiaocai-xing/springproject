@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>管理系统</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/layui/js/login.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/index.css">
+
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="#" id="LAY_layedit_code" th:text="你好+'，'+${session.username}">
+                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="../templates/personal.html">个人中心</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/LoginOut">Sign out</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">用户管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a data-url="templates/user.html" data-id="11" data-title="用户列表" class="site-demo-active">用户列表</a></dd>
+                    </dl>
+                </li>
+            </ul>
+
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">接口管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a data-url="templates/interface.html" data-id="11" data-title="接口测试" class="site-demo-active">接口测试</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!----右侧主题内容区域------>
+    <div class="layui-body">
+        <div class="layui-tab layui-tab-brief" lay-filter="demo" lay-allowclose="false">
+            <ul class="layui-tab-title">
+            </ul>
+            <div class="layui-tab-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/layui/layui.js"></script>
+<script>
+
+    layui.use('element',function (){
+        var $ = layui.jquery,
+            element = layui.element;
+
+        //触发事件
+
+        var active={
+            tabAdd:function (){
+                var htmlurl = $(this).attr('data-url');
+                var datatitle = $(this).attr('data-title');
+
+                var arrayObj = new Array();
+                $(".layui-tab-title").find('li').each(function (){
+                    var y = $(this).attr("lay-id");
+                    arrayObj.push(y);
+                });
+                var have = $.inArray(datatitle,arrayObj);
+                if (have >=0){
+                    element.tabChange('demo',datatitle);
+                }else {
+                    element.tabAdd('demo',{
+                        title:datatitle,content:'<iframe style="width: 100%;height:100%;" frameborder="0" scrolling="yes" src=' + htmlurl +
+                            ' ></iframe>',id:datatitle
+                    })
+                    element.tabChange('demo',datatitle);
+                    FrameWH();
+                }
+            }
+        };
+        function FrameWH() {
+            var h = $(window).height() - 41 - 10 - 60 - 10 - 44 - 10;
+            $("iframe").css("height", h + "px");
+        }
+        function getcookie(){
+
+        }
+        $(window).resize(function() {
+            FrameWH();
+        })
+
+        $(".site-demo-active").click(function() {
+            var type = "tabAdd";
+            var othis = $(this);
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+    });
+</script>
+
+</body>
+</html>

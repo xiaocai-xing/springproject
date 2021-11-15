@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>接口信息</title>
+
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="../static/layui/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="Interfaceinfo" >
+    <form id="param" action="/DoPostTest">
+    <div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请求地址</label>
+            <div class="layui-input-block">
+                <label>
+                    <input type="text" name="url" id="post-url" autocomplete="off" lay-verify="required" placeholder="请输入url" class="layui-input">
+                </label>
+            </div>
+        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">请求方法</label>
+                    <div class="layui-input-block">
+                        <form method="post" name="method-name">
+                            <label><input type="radio" checked="true" value="me-post">POST</label>
+<!--                            <label><input type="radio" value="me-get">GET</label>-->
+                        </form>
+                    </div>
+                </div>
+
+
+        <div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请求类型</label>
+            <select class="layui-tab-content" name="type" id="type" onchange="switchItem()">
+                <option value ="application/json"  >application/json</option>
+                <option value ="form-data"  >form-data</option>
+                <option value="x-www-form-urlencoded"  >x-www-form-urlencoded</option>
+            </select>
+            </div>
+        </div>
+
+    <form id="re-param" action="/DoPostTest">
+        <div class="layui-form-item">
+            <label class="layui-form-label" overflow="top">请求体</label>
+            <div class="layui-input" id="LAY_layedit_code1" >
+                <input style="height: 100px;width: 600px;" type="text" name="request" ><br>
+            </div>
+            <div class="layui-input" id="LAY_layedit_code2" style="display: none">
+                <a>key:</a><input type="text" name="key"  class="layui-input">
+                <a>value:</a><input type="text" name="key"  class="layui-input">
+                <button>添加</button><button>删除</button>
+            </div>
+            <div class="layui-input" id="LAY_layedit_code3" style="display: none">
+                <a>key:</a><input type="text" name="key"  class="layui-input">
+                <a>value:</a><input type="text" name="key"  class="layui-input">
+                <button>添加</button><button>删除</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="layui-tab-content" style="margin: 100px" overflow="0" >
+        <div class="layui-form-item">
+            <button type="button"  class="layui-btn" id="LAY-component-form-setval" lay-submit lay-filter="dopost">提&emsp;&emsp;交</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="close">关&emsp;&emsp;闭</button>
+        </div>
+    </div>
+    </div>
+    </form>
+</div>
+<script src="../static/layui/layui.js"></script>
+<script src="../static/layui/js/Interface.js"></script>
+
+<script>
+    const seletc = document.querySelector('#type')
+    const re1 = document.querySelector('#LAY_layedit_code1')
+    const re2 = document.querySelector('#LAY_layedit_code2')
+    const re3 = document.querySelector('#LAY_layedit_code3')
+
+    function switchItem(){
+        if (seletc.value=='application/json'){
+            re1.style.display = 'block';
+            re2.style.display = 'none';
+            re3.style.display = 'none';
+        }else if (seletc.value=='form-data'){
+            re2.style.display = 'block';
+            re1.style.display = 'none';
+            re3.style.display = 'none';
+        }else {
+            re3.style.display = 'block';
+            re2.style.display = 'none';
+            re1.style.display = 'none';
+        }
+
+    }
+    layui.use('table', function() {
+        let table = layui.table;
+        const $ = layui.jquery;
+
+        $(document).on('click', '#LAY-component-form-setval', function () {
+            setTimeout(function () {
+                table.reload('postparam', {where: {}, page: {curr: 1}})
+            }, 2000)
+        });
+        $("#LAY-component-form-setval").click(function() {
+                DoPostMod();
+                return true;
+
+        })
+
+
+    });
+</script>
+</body>
+</html>
