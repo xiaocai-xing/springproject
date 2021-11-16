@@ -42,6 +42,7 @@ public class UserDao extends User{
 
         String Key ="SELECT COUNT(*) FROM `userinfo` WHERE user_name =? ;";
         return jdbcTemplate.queryForObject(Key,String.class,username);
+
     }
 
     /*用户名和密码查询 */
