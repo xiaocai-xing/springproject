@@ -9,22 +9,14 @@ import com.example.springproject.dao.User;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
-/**
- * @ClassName UserDao
- * @Description TODO
- * @Author Charles0219
- * @Date 2021/11/2 10:16
- * @Version 1.0
- **/
+
+
 
 @Service
 public class UserDao extends User{
 
     private JdbcTemplate jdbcTemplate;
-
 
     @Autowired
     public void setJdbcTemplate (JdbcTemplate JdbcTemplate){
@@ -38,8 +30,8 @@ public class UserDao extends User{
         this.userDao = UserDao;
     }
     /*用户名查询*/
-    public String QueryUser(String username){
 
+    public String QueryUser(String username){
         String Key ="SELECT COUNT(*) FROM `userinfo` WHERE user_name =? ;";
         return jdbcTemplate.queryForObject(Key,String.class,username);
 

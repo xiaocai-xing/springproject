@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class LoginMod extends ReponseInfo {
 
-    @Autowired
+
     private UserDao userServices;
 
     @Autowired
