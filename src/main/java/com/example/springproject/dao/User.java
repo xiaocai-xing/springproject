@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Column;
 
 @Entity
 public class User {
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
@@ -19,6 +20,9 @@ public class User {
     private String sex;
     @Column
     private int age;
+
+    //用户初始密码
+    private String ADD_PASSWORD="123456";
 
     public long getId() {
         return id;
@@ -60,15 +64,24 @@ public class User {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "user{" +
-                "id=" + id +
-                ", name='" + username + '\'' +
-                ", password='" + userpassword + '\'' +
-                ", age=" + age +
-                ", sex='" + sex + '\'' +
-                '}';
+    public String getADD_PASSWORD(){
+        return ADD_PASSWORD;
     }
+    public void setADD_PASSWORD(String ADD_PASSWORD){
+        this.ADD_PASSWORD=ADD_PASSWORD;
+    }
+
+
+
+//    @Override
+//    public String toString() {
+//        return "user{" +
+//                "id=" + id +
+//                ", name='" + username + '\'' +
+//                ", password='" + userpassword + '\'' +
+//                ", age=" + age +
+//                ", sex='" + sex + '\'' +
+//                '}';
+//    }
 
 }

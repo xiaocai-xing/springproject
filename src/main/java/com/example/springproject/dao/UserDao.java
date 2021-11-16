@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import com.example.springproject.dao.User;
+
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,7 @@ public class UserDao extends User{
 
 
     @Autowired
-    public void setJdbcTemplate (JdbcTemplate JdbcTemplate){
+    public void setJdbcTemplate (JdbcTemplate JdbcTemplate) {
         this.jdbcTemplate = JdbcTemplate;
     }
 
