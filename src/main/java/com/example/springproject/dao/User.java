@@ -2,7 +2,9 @@ package com.example.springproject.dao;
 
 //import javax.persistence.*;
 
-//@Entity
+import javax.persistence.Entity;
+
+@Entity
 public class User {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Id
