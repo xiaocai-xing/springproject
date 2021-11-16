@@ -1,21 +1,23 @@
 package com.example.springproject.dao;
 
-//import javax.persistence.*;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 @Entity
 public class User {
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
-//    @Column
+    @Column
     private String username;
-//    @Column
+    @Column
     private String userpassword;
-//    @Column
+    @Column
     private String sex;
-//    @Column
+    @Column
     private int age;
 
     public long getId() {
