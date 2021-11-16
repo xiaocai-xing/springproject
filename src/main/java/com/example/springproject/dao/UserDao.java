@@ -22,11 +22,12 @@ import java.text.SimpleDateFormat;
 
 @Service
 public class UserDao extends User{
+
     private JdbcTemplate jdbcTemplate;
 
 
     @Autowired
-    public void setJdbcTemplate (JdbcTemplate JdbcTemplate) {
+    public void setJdbcTemplate (JdbcTemplate JdbcTemplate){
         this.jdbcTemplate = JdbcTemplate;
     }
 

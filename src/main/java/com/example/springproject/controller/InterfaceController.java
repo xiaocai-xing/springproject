@@ -25,14 +25,9 @@ import java.util.Map;
 
 @RestController
 @ResponseBody
+
 public class InterfaceController extends ReponseInfo {
 
-
-    private UserDao userServices;
-    @Autowired
-    public void setUserService (UserDao userService) {
-        this.userServices = userService;
-    }
     private HttpClientPost httpClientPost;
     @Autowired
     public void setHttpClientPost (HttpClientPost httpClientPost) {

@@ -4,6 +4,7 @@ import com.example.springproject.dao.ReponseInfo;
 import com.example.springproject.dao.ResultInfo;
 import com.example.springproject.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import java.util.Map;
  **/
 @RestController
 @ResponseBody
+
 public class LoginMod extends ReponseInfo {
 
     @Autowired

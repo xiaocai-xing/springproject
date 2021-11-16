@@ -73,15 +73,15 @@ public class User {
 
 
 
-//    @Override
-//    public String toString() {
-//        return "user{" +
-//                "id=" + id +
-//                ", name='" + username + '\'' +
-//                ", password='" + userpassword + '\'' +
-//                ", age=" + age +
-//                ", sex='" + sex + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "user{" +
+                "id=" + id +
+                ", name='" + username + '\'' +
+                ", password='" + userpassword + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                '}';
+    }
 
 }
