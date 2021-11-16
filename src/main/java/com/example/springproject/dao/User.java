@@ -1,6 +1,6 @@
 package com.example.springproject.dao;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
 //@Entity
 public class User {
