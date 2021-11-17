@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Column;
 
 @Entity
 public class User {
+
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
