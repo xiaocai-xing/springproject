@@ -4,7 +4,6 @@ import com.example.springproject.dao.ReponseInfo;
 import com.example.springproject.dao.ResultInfo;
 import com.example.springproject.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,11 +27,11 @@ import java.util.Map;
 public class LoginMod extends ReponseInfo {
 
 
-    private UserDao userServices;
+    private UserDao userService;
 
     @Autowired
     public void setUserService(UserDao userService) {
-        this.userServices = userService;
+        this.userService = userService;
     }
 
 
@@ -41,9 +40,9 @@ public class LoginMod extends ReponseInfo {
         ResultInfo result = new ResultInfo();
         String Username = request.getParameter("username");
         String Userpassword = request.getParameter("userpassword");
-        String ResultUser = userServices.QueryUser(Username);
+        String ResultUser = userService.QueryUser(Username);
         if (ResultUser.equals("1")) {
-            String ResultModPassword = userServices.QueryUserPass(Username, Userpassword);
+            String ResultModPassword = userService.QueryUserPass(Username, Userpassword);
             if (ResultModPassword.equals("1")) {
                 session.setAttribute("username", Username);
                 result.setCode(getSUCCESS_CODE());

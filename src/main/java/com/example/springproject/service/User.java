@@ -1,4 +1,4 @@
-package com.example.springproject.dao;
+package com.example.springproject.service;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +25,7 @@ public class User {
     //用户初始密码
     private String ADD_PASSWORD="123456";
 
-    public long getId() {
-        return id;
-    }
+
 
     public String getPassword() {
         return userpassword;
@@ -37,9 +35,7 @@ public class User {
         this.userpassword = userpassword;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
     public String getUsername() {
         return username;
     }
@@ -74,15 +70,15 @@ public class User {
 
 
 
-    @Override
-    public String toString() {
-        return "user{" +
-                "id=" + id +
-                ", name='" + username + '\'' +
-                ", password='" + userpassword + '\'' +
-                ", age=" + age +
-                ", sex='" + sex + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "user{" +
+//                "id=" + id +
+//                ", name='" + username + '\'' +
+//                ", password='" + userpassword + '\'' +
+//                ", age=" + age +
+//                ", sex='" + sex + '\'' +
+//                '}';
+//    }
 
 }
