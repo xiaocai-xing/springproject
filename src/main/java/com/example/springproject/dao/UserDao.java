@@ -69,7 +69,7 @@ public class UserDao extends User{
     /*添加用户数据 */
     public boolean adduser(Map<String, String> UserData){
 
-        String Key = "INSERT into`userinfo` (`user_name`,`user_passwd`,`user_age`,`user_sex`) VALUES(?,?,?,?);";
+        String Key = "INSERT into `userinfo` (`user_name`,`user_passwd`,`user_age`,`user_sex`) VALUES(?,?,?,?);";
         return jdbcTemplate.update(Key,UserData.get("username"),UserData.get("userpassword"),UserData.get("age"),UserData.get("sex"))>0;
 
     }

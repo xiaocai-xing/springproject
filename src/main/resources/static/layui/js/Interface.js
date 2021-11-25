@@ -3,10 +3,10 @@ function DoPostMod(){
     $.ajax({
         url:"/interface/dopost",
         type:"POST",
-        datatype:"JSON",
-        data: $('#re-param').serialize(),
+        datatype:"json",
+        data: $('#param').serialize(),
         success:function (data) {
-            if(data.code==="0"){
+            if(data.code==="200"){
 
                 layer.open({
                     content: '请求成功',

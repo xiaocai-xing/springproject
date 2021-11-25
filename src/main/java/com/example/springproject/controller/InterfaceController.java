@@ -37,24 +37,23 @@ public class InterfaceController extends ReponseInfo {
     @RequestMapping("/interface/dopost")
     public ResultInfo DoPostTest(HttpServletRequest request){
         ResultInfo resultInfo = new ResultInfo();
-        String url = request.getParameter("url");
+        String re_url = request.getParameter("url");
         String request_js = request.getParameter("request");
         Map<String, Object> PostMap = new HashMap<>();
         PostMap.put("request",request.getParameter("request"));
 
         //判断请求方式
-        String method = request.getParameter("method-url");
+        String method = request.getParameter("method-name");
         String re_type = request.getParameter("type");
-        String re_method = request.getParameter("method-name");
 
-        if (re_method =="me-post"){
+        if (method =="POST"){
             if (re_type=="form-data"){
-                String result = httpClientPost.doPost_key(url,re_method,re_type,PostMap);
+                String result = httpClientPost.doPost_key(re_url,method,re_type,PostMap);
             }else if (re_type=="application/json"){
-                String result = httpClientPost.dopost_js(url,re_method,re_type,request_js);
+                String result = httpClientPost.dopost_js(re_url,method,re_type,request_js);
             }
         }else {
-            String result = httpClientPost.doget(url);
+            String result = httpClientPost.doget(re_url);
         }
 
 
