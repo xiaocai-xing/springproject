@@ -3,7 +3,8 @@ body{
     margin:0;
     padding:0;
     /*图片地址*/
-    background-size: 100%, 100%;
+    background-size: 100%;
+    background-image: url("static/layui/image/login_bg/xiyang.jpg");
 }
 .center{
     position: absolute;
