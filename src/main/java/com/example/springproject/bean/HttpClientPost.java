@@ -6,6 +6,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -36,9 +37,9 @@ public class HttpClientPost {
 
 
     //post请求方法key-value
-    public String doPost_key(String url, String method, String content, Map<String, Object> paramMap) {
+    public String doPost_key(String url,  String content, Map<String, Object> paramMap) {
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-        HttpPost post = new HttpPost(url);
+
         String result = "";
 
 
@@ -52,7 +53,9 @@ public class HttpClientPost {
                 nvps.add(new BasicNameValuePair(name, value));
             }
             HttpEntity entity = new StringEntity(nvps.toString(), "UTF-8");
+            HttpPost post = new HttpPost(url+"?"+entity);
             post.setEntity(entity);
+
             //设置请求头
             String header = content;
             post.getHeaders(header);
@@ -80,37 +83,36 @@ public class HttpClientPost {
     }
 
     //post请求方法json
-    public String dopost_js(String url, String method, String content,String params) {
-        HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-        HttpPost post = new HttpPost(url);
-        String result = "";
-        //设置请求头
-        String accept = content;
-        post.setHeader("Accept",content);
-        String header = content;
-        post.setHeader("Content-Type",content);
-        String charSet = "UTF-8";
-        StringEntity entity = new StringEntity(params, charSet);
-        post.setEntity(entity);
+    public String dopost_js(String url, String content,String params) {
 
-        try (CloseableHttpClient closeableHttpClient = httpClientBuilder.build()){
-            HttpResponse resp = closeableHttpClient.execute(post);
-            StatusLine status = resp.getStatusLine();
-            int state = status.getStatusCode();
-            if (state == HttpStatus.SC_OK) {
-                HttpEntity responseEntity = resp.getEntity();
-                String jsonString = EntityUtils.toString(responseEntity);
-                return jsonString;
+        String result = null;
+        String contentType = content;
+        try{
+            CloseableHttpClient httpclient = null;
+            CloseableHttpResponse httpresponse = null;
+        try{
+            httpclient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost(url);
 
-            } else {
-                System.out.println("code" + state);
+            StringEntity stringEntity = new StringEntity(params, ContentType.create(contentType,"utf-8"));
+            httpPost.setEntity(stringEntity);
+            httpresponse = httpclient.execute(httpPost);
+            result = EntityUtils.toString(httpresponse.getEntity());
+
+        }finally {
+            if (httpclient != null) {
+                httpclient.close();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (httpresponse != null) {
+                httpresponse.close();
+            }
         }
 
-        return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  result;
+
     }
 
 
