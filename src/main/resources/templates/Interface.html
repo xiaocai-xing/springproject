@@ -20,45 +20,12 @@
                 </label>
             </div>
         </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">请求方法</label>
-                    <div class="layui-input-block">
-                        <form method="post" name="method-name">
-                            <label><input type="radio" checked="true" value="me-post">POST</label>
-<!--                            <label><input type="radio" value="me-get">GET</label>-->
-                        </form>
-                    </div>
-                </div>
-
-
-        <div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">请求类型</label>
-            <select class="layui-tab-content" name="type" id="type" onchange="switchItem()">
-                <option value ="application/json"  >application/json</option>
-                <option value ="form-data"  >form-data</option>
-                <option value="x-www-form-urlencoded"  >x-www-form-urlencoded</option>
-            </select>
-            </div>
-        </div>
-
     <form id="re-param" action="/DoPostTest">
-        <div class="layui-form-item">
-            <label class="layui-form-label" overflow="top">请求体</label>
-            <div class="layui-input" id="LAY_layedit_code1" >
-                <input style="height: 100px;width: 600px;" type="text" name="request" ><br>
-            </div>
-            <div class="layui-input" id="LAY_layedit_code2" style="display: none">
+            <div class="layui-input" id="LAY_layedit_code3" >
                 <a>key:</a><input type="text" name="key"  class="layui-input">
-                <a>value:</a><input type="text" name="key"  class="layui-input">
                 <button>添加</button><button>删除</button>
             </div>
-            <div class="layui-input" id="LAY_layedit_code3" style="display: none">
-                <a>key:</a><input type="text" name="key"  class="layui-input">
-                <a>value:</a><input type="text" name="key"  class="layui-input">
-                <button>添加</button><button>删除</button>
-            </div>
-        </div>
+
     </form>
 
     <div class="layui-tab-content" style="margin: 100px" overflow="0" >

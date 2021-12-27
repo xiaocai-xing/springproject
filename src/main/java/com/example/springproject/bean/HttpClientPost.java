@@ -1,6 +1,7 @@
 package com.example.springproject.bean;
 
 
+import com.example.springproject.dao.ResultInfo;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -35,53 +36,6 @@ import java.util.Map;
 @Service
 public class HttpClientPost {
 
-
-    //post请求方法key-value
-    public String doPost_key(String url,  String content, Map<String, Object> paramMap) {
-        HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-
-        String result = "";
-
-
-        try (CloseableHttpClient closeableHttpClient = httpClientBuilder.build()) {
-
-            //设置参数
-            List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-            for (Iterator iter = paramMap.keySet().iterator(); iter.hasNext(); ) {
-                String name = (String) iter.next();
-                String value = String.valueOf(paramMap.get(name));
-                nvps.add(new BasicNameValuePair(name, value));
-            }
-            HttpEntity entity = new StringEntity(nvps.toString(), "UTF-8");
-            HttpPost post = new HttpPost(url+"?"+entity);
-            post.setEntity(entity);
-
-            //设置请求头
-            String header = content;
-            post.getHeaders(header);
-
-            //返回体
-            HttpResponse resp = closeableHttpClient.execute(post);
-            int code = resp.getStatusLine().getStatusCode();
-            if (code == 200) {
-                try {
-                    InputStream respIs = resp.getEntity().getContent();
-                    byte[] respBytes = IOUtils.toByteArray(respIs);
-                    result = new String(respBytes, Charset.forName("UTF-8"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("状态码：" + code);
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-
-    }
-
     //post请求方法json
     public String dopost_js(String url, String content,String params) {
 
@@ -115,17 +69,17 @@ public class HttpClientPost {
 
     }
 
-
-
     //get请求方法
-    public String doget(String url){
+    public String doget(String url,String key){
         CloseableHttpClient closeableHttpClient = null;
         CloseableHttpResponse response = null;
         String result = null;
+        ResultInfo resultInfo = new ResultInfo();
 
         try {
             closeableHttpClient = HttpClients.createDefault();
             HttpGet httpGet = new HttpGet(url);
+            httpGet.setHeader("access_token",key);
 
             response = closeableHttpClient.execute(httpGet);
             HttpEntity entity = response.getEntity();
@@ -152,6 +106,5 @@ public class HttpClientPost {
         }
         return result;
     }
-
 
 }
