@@ -12,6 +12,7 @@
 <div class="Interfaceinfo" >
     <form id="param" action="/DoPostTest">
     <div>
+        <div>一个get请求例子</div>
         <div class="layui-form-item">
             <label class="layui-form-label">请求地址</label>
             <div class="layui-input-block">
@@ -20,13 +21,14 @@
                 </label>
             </div>
         </div>
-    <form id="re-param" action="/DoPostTest">
-            <div class="layui-input" id="LAY_layedit_code3" >
-                <a>key:</a><input type="text" name="key"  class="layui-input">
-                <button>添加</button><button>删除</button>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请求参数</label>
+            <div class="layui-input-block">
+                <label>
+                    <input type="text" name="key" id="post-key" autocomplete="off" lay-verify="required" placeholder="请输入" class="layui-input">
+                </label>
             </div>
-
-    </form>
+        </div>
 
     <div class="layui-tab-content" style="margin: 100px" overflow="0" >
         <div class="layui-form-item">
