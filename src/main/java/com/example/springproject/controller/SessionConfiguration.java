@@ -9,6 +9,6 @@ public class SessionConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(new SessionInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/login")
-                .excludePathPatterns("/registers","/layui/**");
+                .excludePathPatterns("/registers","/layui/**","/san-js/**");
     }
 }

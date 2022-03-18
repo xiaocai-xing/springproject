@@ -1,6 +1,8 @@
 package com.example.springproject.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.springproject.bean.HttpClientPost;
 import com.example.springproject.dao.ReponseInfo;
 import com.example.springproject.dao.ResultInfo;
@@ -33,12 +35,16 @@ public class InterfaceController extends ReponseInfo {
     }
 
     @RequestMapping("/interface/dopost")
-    public String DoPostTest(HttpServletRequest request){
+    public Object DoPostTest(HttpServletRequest request){
         String result = null;
         String url = request.getParameter("url");
-        String key = request.getParameter("key");
-        result = httpClientPost.doget(url,key);
-        return result;
+        String type = request.getParameter("type");
+        String s = request.getParameter("params");
+        Map params = (Map) JSONObject.parse(s);
+        result = HttpClientPost.doservice(url,type,params);
+        JSONObject object = JSON.parseObject(result);
+        System.out.println(object.getString("code"));
+        return object;
     }
 
 

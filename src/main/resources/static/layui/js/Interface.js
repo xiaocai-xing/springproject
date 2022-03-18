@@ -1,16 +1,22 @@
 
+
 function DoPostMod(){
+    let str = '';
     $.ajax({
         url:"/interface/dopost",
         type:"POST",
         datatype:"json",
         data: $('#param').serialize(),
         success:function (data) {
-            if(data.code==="200"){
+            console.log(data.code);
 
+            if(data.code === "200" ){
+                // str = data.toString();
+
+                $("#responsedata").text(JSON.stringify(data));
                 layer.open({
                     content: '请求成功',
-                    yes: function(index, layero){
+                    yes: function(index){
                         layer.close(index);
                     }
                 });
@@ -18,7 +24,7 @@ function DoPostMod(){
             }else {
 
                 layer.open({
-                    content: data.errormsg,
+                    content: '请求失败',
                     yes: function(index, layero){
                         layer.close(index);
                     }
